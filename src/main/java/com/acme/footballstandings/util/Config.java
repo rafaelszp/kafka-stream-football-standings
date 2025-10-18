@@ -16,4 +16,7 @@ public interface Config {
 
     @WithName("seasons_results")
     String seasonResults();
+
+    @WithName("processed_game_table")
+    String processedGamesStore();
 }

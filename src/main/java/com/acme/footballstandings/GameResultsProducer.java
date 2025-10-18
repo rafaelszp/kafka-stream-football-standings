@@ -8,6 +8,7 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.serialization.StringSerializer;
 
 import java.util.ArrayList;
@@ -22,6 +23,8 @@ public class GameResultsProducer {
     public static void main(String[] args) {
 
         System.out.println("Hello, Kafka Transaction Producer!");
+
+        System.out.println(Serdes.StringSerde.class);
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
         props.put(ProducerConfig.ACKS_CONFIG, "all"); // Confirmação de recebimento
@@ -32,7 +35,8 @@ public class GameResultsProducer {
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, serializer.getClass().getName());
 
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        short season = (short)random.nextInt(2023,2026);
+        short season = (short)random.nextInt(2018,2030);
+//        season = 2018;
         List<GameResult> resultList = new ArrayList<>();
 //        try (Producer<String, GameResult> producer = new KafkaProducer<>(props))
         try (Producer<String, GameResult> producer = new KafkaProducer<>(props)) {
